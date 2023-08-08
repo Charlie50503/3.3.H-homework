@@ -1,7 +1,8 @@
 {
   "cSpell.words": [
     "Dokodemo",
-    "touchee"
+    "touchee",
+    "uuidv"
   ],
   "vscodeGitCommit.template": [
     "3.3.H {tag}: {page}/{otherTarget}→{title}",
