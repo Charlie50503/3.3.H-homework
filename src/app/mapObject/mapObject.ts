@@ -1,10 +1,10 @@
 import { Position } from '../position';
 
 export abstract class MapObject {
-  id: number;
+  id: string;
   position: Position;
 
-  constructor(id: number, position: Position) {
+  constructor(id: string, position: Position) {
     this.id = id;
     this.position = position;
   }

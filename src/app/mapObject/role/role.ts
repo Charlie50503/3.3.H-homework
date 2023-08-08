@@ -1,17 +1,16 @@
 import { Position } from './../../position';
 import { Normal } from '../../state/normal';
 import { State } from '../../state/state';
+import { MapObject } from '../mapObject';
 
-export abstract class Role {
+export abstract class Role extends MapObject {
   hp: number;
   state: State;
-  position: Position;
-
-  isDead: boolean = false;
-  constructor(position: Position) {
+  public isDead: boolean = false;
+  constructor(id: string, position: Position) {
+    super(id, position);
     this.hp = this.getMaxHp();
     this.state = new Normal(this);
-    this.position = position;
   }
   setState(state: State) {
     this.state = state;
@@ -45,5 +44,5 @@ export abstract class Role {
     }
   }
 
-  public abstract takeTurn():void
+  public abstract takeTurn(): void;
 }

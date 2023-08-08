@@ -2,16 +2,16 @@ import { MapObject } from './mapObject/mapObject';
 import { Position } from './position';
 
 export class GameMap {
-  width: number;
-  height: number;
+  rolSize: number;
+  colSize: number;
 
   grid: (MapObject | null)[][];
 
   occupiedPositions: Set<string> = new Set();
-  constructor(width: number, height: number) {
-    this.width = width;
-    this.height = height;
-    this.grid = this.generateMap(width, height);
+  constructor(rowSize: number, colSize: number) {
+    this.rolSize = rowSize;
+    this.colSize = colSize;
+    this.grid = this.generateMap(rowSize, colSize);
   }
 
   private generateMap(width: number, height: number) {
@@ -52,9 +52,24 @@ export class GameMap {
     this.occupiedPositions.add(key);
   }
 
-  removeObject(position: Position) {}
+  removeObject(position: Position) {
+    if (this.grid[position.row][position.col]) {
+      this.grid[position.row][position.col] = null;
+      this.occupiedPositions.delete(`${position.row}-${position.col}`);
+    } else {
+      throw Error('沒找到可以刪除的物件');
+    }
+  }
 
   isPositionOccupied(position: Position) {
     return this.grid[position.row][position.col] !== null;
+  }
+
+  getRowSize() {
+    return this.rolSize
+  }
+
+  getColumnSize() {
+    return this.colSize
   }
 }
