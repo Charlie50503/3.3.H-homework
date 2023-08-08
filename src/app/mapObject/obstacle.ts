@@ -11,7 +11,7 @@ export class Obstacle extends MapObject {
     return '障礙物';
   }
 
-  public getSymbol(): string {
+  public getSymbol(): EMapObjectSymbol {
     return EMapObjectSymbol.obstacle;
   }
 }

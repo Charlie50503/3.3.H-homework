@@ -1,5 +1,5 @@
-import { EState } from '../enum/state.enum';
-import { State } from './state';
+import { EState } from "../enum/state.enum";
+import { State } from "./state";
 
 export class Poisoned extends State {
   public getDurationRound(): number {
@@ -7,16 +7,14 @@ export class Poisoned extends State {
   }
 
   public getName(): string {
-    return '中毒';
+    return "中毒";
   }
 
   public onRoundStart(): void {
     this.role.onDamage(15);
   }
 
-  public onTurn(): void {}
-
   public getType(): EState {
-      return EState.Poisoned
+    return EState.Poisoned;
   }
 }

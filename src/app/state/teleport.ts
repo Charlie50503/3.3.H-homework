@@ -14,17 +14,9 @@ export class Teleport extends State {
     return EState.Teleport;
   }
 
-  public onRoundStart(): void {
-
-  }
-
-  public onTurn(): void {
-
-  }
+  public onRoundStart(): void {}
 
   public afterRoundEnd(): void {
     // TODO 隨機傳送
   }
-
 }
-

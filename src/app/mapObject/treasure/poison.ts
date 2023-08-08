@@ -1,3 +1,4 @@
+import { Poisoned } from './../../state/poisoned';
 import { ETreasureType } from '../../enum/treasureType.enum';
 import { Invincible } from '../../state/invincible';
 import { Role } from '../role/role';
@@ -11,7 +12,7 @@ export class Poison extends Treasure {
   }
 
   protected getEffect(toucher: Role): void {
-    toucher.setState(new Invincible(toucher));
+    toucher.setState(new Poisoned(toucher));
   }
 
   getType() {

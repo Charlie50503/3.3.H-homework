@@ -1,9 +1,9 @@
-import { EState } from '../enum/state.enum';
-import { State } from './state';
+import { EState } from "../enum/state.enum";
+import { State } from "./state";
 
 export class Healing extends State {
   public getName(): string {
-    return '恢復';
+    return "恢復";
   }
 
   public onRoundStart() {
@@ -15,8 +15,6 @@ export class Healing extends State {
   }
 
   public getEffect(): void {}
-
-  public onTurn(): void {}
 
   public getType(): EState {
     return EState.Invincible;

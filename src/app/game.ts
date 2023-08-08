@@ -1,7 +1,8 @@
+import { Obstacle } from "./mapObject/obstacle";
 import { GameMap } from "./gameMap";
 import { CharacterGenerator } from "./objectGenerator/characterGenerator";
 import { MonsterGenerator } from "./objectGenerator/monsterGenerator";
-import { Character } from "./mapObject/role/character";
+import { Character } from "./mapObject/role/character/character";
 import { Monster } from "./mapObject/role/monster";
 import { ObstacleGenerator } from "./objectGenerator/obstacleGenerator";
 import { TreasureGenerator } from "./objectGenerator/treasureGenerator";
@@ -12,6 +13,7 @@ import { MapObject } from "./mapObject/mapObject";
 export class Game {
   map: GameMap;
   monsters: Monster[];
+  obstacles: Obstacle[];
   treasureFactory: TreasureFactory;
   character!: Character;
   monsterSize: number;
@@ -31,6 +33,7 @@ export class Game {
     this.obstacleSize = obstacleSize;
     this.treasureSize = treasureSize;
     this.monsters = [];
+    this.obstacles = [];
   }
 
   public start() {
@@ -48,14 +51,14 @@ export class Game {
     this.map.printMap();
     this.character.printState();
     // 回合開始
-    this.executeRoundPhase(() => this.character.state.onRoundStart());
-    this.executeRoundPhase(() => this.monsters.forEach((m) => m.state.onRoundStart()));
-    this.executeRoundPhase(() => this.character.state.onTurn());
-    this.executeRoundPhase(() => this.monsters.forEach((m) => m.state.onTurn()));
-    this.executeRoundPhase(() => this.character.state.onRoundEnd());
-    this.executeRoundPhase(() => this.monsters.forEach((m) => m.state.onRoundEnd()));
-    this.executeRoundPhase(() => this.character.state.afterRoundEnd());
-    this.executeRoundPhase(() => this.monsters.forEach((m) => m.state.afterRoundEnd()));
+    this.executeRoundPhase(() => this.character.getState().onRoundStart());
+    this.executeRoundPhase(() => this.monsters.forEach((m) => m.getState().onRoundStart()));
+    this.executeRoundPhase(() => this.character.getState().onTurn());
+    this.executeRoundPhase(() => this.monsters.forEach((m) => m.getState().onTurn()));
+    this.executeRoundPhase(() => this.character.getState().onRoundEnd());
+    this.executeRoundPhase(() => this.monsters.forEach((m) => m.getState().onRoundEnd()));
+    this.executeRoundPhase(() => this.character.getState().afterRoundEnd());
+    this.executeRoundPhase(() => this.monsters.forEach((m) => m.getState().afterRoundEnd()));
     // 下一回合
     this.nextRound();
   }
@@ -75,7 +78,9 @@ export class Game {
       this.monsters.push(monster);
     });
     this.generateObject(new TreasureGenerator(this.map, this.treasureFactory), this.treasureSize);
-    this.generateObject(new ObstacleGenerator(this.map), this.obstacleSize);
+    this.generateObject(new ObstacleGenerator(this.map), this.obstacleSize, (obstacle: Obstacle) => {
+      this.obstacles.push(obstacle);
+    });
   }
 
   private generateObject<T extends MapObject>(

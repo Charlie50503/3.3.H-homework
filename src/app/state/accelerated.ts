@@ -1,14 +1,18 @@
-import { EState } from '../enum/state.enum';
-import { Normal } from './normal';
-import { State } from './state';
+import { EState } from "../enum/state.enum";
+import { Normal } from "./normal";
+import { State } from "./state";
 
 export class Accelerated extends State {
   public getName(): string {
-    return '加速';
+    return "加速";
   }
 
   protected getDurationRound(): number {
     return 3;
+  }
+
+  public getType(): EState {
+    return EState.Accelerated;
   }
 
   public override onDamage(damage: number): void {
@@ -16,14 +20,8 @@ export class Accelerated extends State {
     this.role.setState(new Normal(this.role));
   }
 
-  public getType(): EState {
-    return EState.Accelerated;
+  public override async onTurn(): Promise<void> {
+    await this.role.takeTurn();
+    await this.role.takeTurn();
   }
-
-  public onTurn(): void {
-    this.role.takeTurn();
-    this.role.takeTurn();
-  }
-
-  public onRoundStart(): void {}
 }

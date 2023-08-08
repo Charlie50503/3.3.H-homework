@@ -1,21 +1,21 @@
 import { EDirection } from './enum/direction.enum';
 
 export class Position {
-  row: number;
-  col: number;
+  private row: number;
+  private col: number;
 
   constructor(row: number, col: number) {
     this.row = row;
     this.col = col;
   }
 
-  equals(other: Position): boolean {
+  public equals(other: Position): boolean {
     return this.row === other.row && this.col === other.col;
   }
 
-  updatePosition(row: number, col: number) {
-    this.row = row;
-    this.col = col;
+  public updatePosition(position: Position) {
+    this.row = position.row;
+    this.col = position.col;
   }
   public findNextPosition(direction: EDirection) {
     let row = this.row;
@@ -35,5 +35,13 @@ export class Position {
         break;
     }
     return new Position(row, col);
+  }
+
+  getRow(){
+    return this.row
+  }
+
+  getColumn(){
+    return this.col
   }
 }
