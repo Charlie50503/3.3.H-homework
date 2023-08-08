@@ -4,7 +4,7 @@
     "touchee"
   ],
   "vscodeGitCommit.template": [
-    "{tag}: {page}/{otherTarget}→{title}",
+    "3.3.H {tag}: {page}/{otherTarget}→{title}",
     "",
     "{message}"
   ],
@@ -46,6 +46,9 @@
       }
     ],
     "page": [
+      {
+        "label": "代碼"
+      },
       {
         "label": "專案"
       },
