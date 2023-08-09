@@ -3,6 +3,7 @@ import { EState } from "../enum/state.enum";
 import { GameMap } from "../gameMap";
 import { Role } from "../mapObject/role/role";
 import { State } from "./state";
+import { Teleport } from "./teleport";
 
 export class Erupting extends State {
   public getName(): string {
@@ -28,5 +29,12 @@ export class Erupting extends State {
         }
       });
     });
+  }
+
+  public override onRoundEnd(): void {
+    this.roundCount++;
+    if (this.roundCount >= this.getDurationRound()) {
+      this.role.setState(new Teleport(this.role));
+    }
   }
 }
