@@ -12,6 +12,7 @@ export abstract class State {
 
   public abstract getName(): string;
   protected abstract getDurationRound(): number;
+  public abstract getType(): EState;
   public enterState() {
     console.log(this.role.getName(), "進入", this.getName(), "狀態");
   }
@@ -36,8 +37,4 @@ export abstract class State {
       this.role.setState(new Normal(this.role));
     }
   }
-
-  public afterRoundEnd() {}
-
-  public abstract getType(): EState;
 }

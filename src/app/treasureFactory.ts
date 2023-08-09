@@ -12,17 +12,17 @@ export class TreasureFactory {
     ETreasureType,
     {
       creator: TreasureCreator;
-      probability: number;
+      PROBABILITY: number;
     }
   >();
   registerTreasure(
     type: ETreasureType,
     creator: TreasureCreator,
-    probability: number
+    PROBABILITY: number
   ) {
     this.creators.set(type, {
       creator: creator,
-      probability: probability,
+      PROBABILITY: PROBABILITY,
     });
   }
 
@@ -38,7 +38,7 @@ export class TreasureFactory {
     ETreasureType,
     {
       creator: TreasureCreator;
-      probability: number;
+      PROBABILITY: number;
     }
   > {
     return this.creators;

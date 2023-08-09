@@ -1,3 +1,4 @@
+import { Stockpile } from './state/stockpile';
 import { Obstacle } from "./mapObject/obstacle";
 import { GameMap } from "./gameMap";
 import { CharacterGenerator } from "./objectGenerator/characterGenerator";
@@ -9,6 +10,9 @@ import { TreasureGenerator } from "./objectGenerator/treasureGenerator";
 import { TreasureFactory } from "./treasureFactory";
 import { ObjectGenerator } from "./objectGenerator/objectGenerator";
 import { MapObject } from "./mapObject/mapObject";
+import { Accelerated } from "./state/accelerated";
+import { Erupting } from "./state/erupting";
+import { Healing } from "./state/healing";
 
 export class Game {
   map: GameMap;
@@ -42,7 +46,7 @@ export class Game {
     this.nextRound();
   }
 
-  private nextRound() {
+  private async nextRound() {
     if (this.isGameOver()) {
       this.gameOver();
       return;
@@ -51,36 +55,77 @@ export class Game {
     this.map.printMap();
     this.character.printState();
     // 回合開始
-    this.executeRoundPhase(() => this.character.getState().onRoundStart());
-    this.executeRoundPhase(() => this.monsters.forEach((m) => m.getState().onRoundStart()));
-    this.executeRoundPhase(() => this.character.getState().onTurn());
-    this.executeRoundPhase(() => this.monsters.forEach((m) => m.getState().onTurn()));
-    this.executeRoundPhase(() => this.character.getState().onRoundEnd());
-    this.executeRoundPhase(() => this.monsters.forEach((m) => m.getState().onRoundEnd()));
-    this.executeRoundPhase(() => this.character.getState().afterRoundEnd());
-    this.executeRoundPhase(() => this.monsters.forEach((m) => m.getState().afterRoundEnd()));
+    await this.executeRoundPhase(() =>
+      this.character.getState().onRoundStart()
+    );
+    await this.executeRoundPhase(() =>
+      this.monsters
+        .filter((m) => !m.isDead)
+        .forEach((m) => m.getState().onRoundStart())
+    );
+    await this.executeRoundPhase(
+      async () => await this.character.getState().onTurn()
+    );
+    await this.executeRoundPhase(() =>
+      this.monsters
+        .filter((m) => !m.isDead)
+        .forEach((m) => m.getState().onTurn())
+    );
+    await this.executeRoundPhase(() => this.character.getState().onRoundEnd());
+    await this.executeRoundPhase(() =>
+      this.monsters
+        .filter((m) => !m.isDead)
+        .forEach((m) => m.getState().onRoundEnd())
+    );
+    this.removeDeadMonsters();
     // 下一回合
     this.nextRound();
   }
 
-  private executeRoundPhase(phaseFunction: () => void) {
-    phaseFunction();
+  private removeDeadMonsters() {
+    this.monsters.forEach((m) => {
+      if (m.isDead) {
+        this.map.removeObject(m.getPosition());
+      }
+    });
+
+    this.monsters = this.monsters.filter((m) => !m.isDead);
+  }
+
+  private async executeRoundPhase(phaseFunction: () => void) {
+    await phaseFunction();
     if (this.isGameOver()) {
       this.gameOver();
     }
   }
 
   private generateObjects() {
-    this.generateObject(new CharacterGenerator(this.map), 1, (character: Character) => {
-      this.character = character;
-    });
-    this.generateObject(new MonsterGenerator(this.map), this.monsterSize, (monster: Monster) => {
-      this.monsters.push(monster);
-    });
-    this.generateObject(new TreasureGenerator(this.map, this.treasureFactory), this.treasureSize);
-    this.generateObject(new ObstacleGenerator(this.map), this.obstacleSize, (obstacle: Obstacle) => {
-      this.obstacles.push(obstacle);
-    });
+    this.generateObject(
+      new CharacterGenerator(this.map),
+      1,
+      (character: Character) => {
+        this.character = character;
+        this.character.setState(new Stockpile(this.character));
+      }
+    );
+    this.generateObject(
+      new MonsterGenerator(this.map),
+      this.monsterSize,
+      (monster: Monster) => {
+        this.monsters.push(monster);
+      }
+    );
+    this.generateObject(
+      new TreasureGenerator(this.map, this.treasureFactory),
+      this.treasureSize
+    );
+    this.generateObject(
+      new ObstacleGenerator(this.map),
+      this.obstacleSize,
+      (obstacle: Obstacle) => {
+        this.obstacles.push(obstacle);
+      }
+    );
   }
 
   private generateObject<T extends MapObject>(

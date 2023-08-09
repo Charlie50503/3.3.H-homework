@@ -27,8 +27,8 @@ export class TreasureGenerator extends ObjectGenerator<Treasure> {
     let sum = 0;
     return Array.from(this.treasureFactory.getCreators()).reduce(
       (items, [type, creator]) => {
-        const range: [number, number] = [sum, sum + creator.probability];
-        sum += creator.probability;
+        const range: [number, number] = [sum, sum + creator.PROBABILITY];
+        sum += creator.PROBABILITY;
         return items.concat({ type, range });
       },
       [] as TreasureItem[]

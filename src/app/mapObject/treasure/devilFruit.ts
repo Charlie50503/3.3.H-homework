@@ -4,8 +4,8 @@ import { Orderless } from '../../state/orderless';
 import { Role } from '../role/role';
 import { Treasure } from './treasure';
 
-export class SuperStar extends Treasure {
-  static readonly probability: number = 0.1;
+export class DevilFruit extends Treasure {
+  static readonly PROBABILITY: number = 0.1;
 
   public getName(): string {
     return '惡魔果實';

@@ -23,4 +23,8 @@ export abstract class MapObject {
   public set id(value: string) {
     this._id = value;
   }
+
+  public printFlag(): string {
+    return this.getSymbol();
+  }
 }

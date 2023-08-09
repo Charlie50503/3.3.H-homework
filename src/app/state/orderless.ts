@@ -11,7 +11,7 @@ export class Orderless extends State {
   public onRoundStart(): void {}
 
   public override async onTurn(): Promise<void> {
-    console.log("你陷入混亂中無法進行攻擊操作");
+    console.log(this.role.getName(), "陷入混亂中無法進行攻擊操作");
     const moveStrategy = this.randomMoveStrategy();
     await this.role.handleMove(moveStrategy);
   }

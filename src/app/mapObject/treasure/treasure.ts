@@ -4,16 +4,15 @@ import { MapObject } from "../mapObject";
 import { Role } from "../role/role";
 
 export abstract class Treasure extends MapObject {
-  static probability: number;
+  static readonly PROBABILITY:number;
 
   public abstract getName(): string;
   public getSymbol() {
     return EMapObjectSymbol.treasure;
   }
-  public onTouch(toucher: Role, touchee: Treasure) {
-    if (touchee.getType() === this.getType()) {
-      this.getEffect(toucher);
-    }
+  public onTouch(toucher: Role) {
+    console.log(toucher.getName(), '獲得了', this.getName());
+    this.getEffect(toucher);
   }
 
   public abstract getType(): ETreasureType;

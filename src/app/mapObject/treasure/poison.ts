@@ -5,7 +5,7 @@ import { Role } from '../role/role';
 import { Treasure } from './treasure';
 
 export class Poison extends Treasure {
-  static readonly probability: number = 0.25;
+  static readonly PROBABILITY: number = 0.25;
 
   public getName(): string {
     return '毒藥';

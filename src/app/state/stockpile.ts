@@ -1,6 +1,7 @@
-import { Erupting } from "./erupting";
 import { EState } from "../enum/state.enum";
 import { State } from "./state";
+import { Normal } from "./normal";
+import { Erupting } from "./erupting";
 
 export class Stockpile extends State {
   getName(): string {
@@ -15,9 +16,15 @@ export class Stockpile extends State {
     return EState.Stockpile;
   }
 
-  onRoundStart(): void {}
+  public override onDamage(damage: number): void {
+    this.role.setState(new Normal(this.role));
+    this.role.onDamage(damage);
+  }
 
-  public afterRoundEnd(): void {
-    this.role.setState(new Erupting(this.role));
+  public override onRoundEnd(): void {
+    this.roundCount++;
+    if (this.roundCount >= this.getDurationRound()) {
+      this.role.setState(new Erupting(this.role));
+    }
   }
 }

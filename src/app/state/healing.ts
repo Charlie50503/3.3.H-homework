@@ -11,12 +11,12 @@ export class Healing extends State {
   }
 
   protected getDurationRound(): number {
-    return 2;
+    return 5;
   }
 
   public getEffect(): void {}
 
   public getType(): EState {
-    return EState.Invincible;
+    return EState.Healing;
   }
 }

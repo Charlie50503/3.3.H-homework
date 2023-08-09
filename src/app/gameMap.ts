@@ -29,7 +29,7 @@ export class GameMap {
       row.forEach((cell, columnIndex) => {
         if (cell) {
           // 若該格子有角色，則先印出角色
-          rowStr += cell.getSymbol() + " ";
+          rowStr += cell.printFlag() + " ";
         } else {
           // 若該格子什麼都沒有，則印出空格
           rowStr += "- ";
@@ -59,7 +59,16 @@ export class GameMap {
   }
 
   public isPositionOccupied(position: Position) {
-    return this.grid[position.getRow()][position.getColumn()] !== null;
+    const row = position.getRow();
+    const column = position.getColumn();
+
+    // 檢查 row 和 column 是否在合理的範圍內
+    if (row < 0 || row >= this.grid.length || column < 0 || column >= this.grid[row].length) {
+      return false; // 或者你可以選擇拋出一個錯誤，取決於你的邏輯
+    }
+
+    const cellValue = this.grid[row][column];
+    return cellValue != null;
   }
 
   public getRowSize() {

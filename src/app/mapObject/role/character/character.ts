@@ -2,7 +2,6 @@ import { GameMap } from "../../../gameMap";
 import { EDirection } from "../../../enum/direction.enum";
 import { Position } from "../../../position";
 import { Role } from "../role";
-import { Direction } from "../../../direction";
 import { readlineService } from "../../../services/readline.service";
 import { readlineValidation } from "../../../services/readline.validation";
 import { MoveActionCommand, MoveStrategy } from "../moveStrategy/moveStrategy";
@@ -14,12 +13,8 @@ import { CharacterLeftAttackStrategy } from "./attackStrategy/characterLeftAttac
 import { MoveNormalStrategy } from "../moveStrategy/MoveNormalStrategy";
 
 export class Character extends Role {
-
-  private direction: Direction;
   constructor(id: string, position: Position, map: GameMap) {
     super(id, position, map);
-    this.direction = new Direction();
-    this.direction.setCurrentDirection(this.direction.randomDirection());
   }
 
   public getName(): string {
@@ -33,7 +28,7 @@ export class Character extends Role {
   }
 
   public async attack(): Promise<void> {
-    console.log(this.getName() + `朝 ${this.direction} 方向發出攻擊`);
+    console.log(this.getName() + `朝 ${this.direction.getCurrentDirection()} 方向發出攻擊`);
     const attackStrategy = this.handleAttackStrategy(this.direction.getCurrentDirection());
     attackStrategy.attack();
   }
@@ -76,5 +71,9 @@ export class Character extends Role {
       case EDirection.Right:
         return new CharacterRightAttackStrategy(this.position, this.map);
     }
+  }
+
+  public printFlag() {
+    return this.direction.getCurrentDirection();
   }
 }

@@ -22,16 +22,16 @@ export class Position {
     let col = this.col;
     switch (direction) {
       case EDirection.Up:
-        col = col - 1;
-        break;
-      case EDirection.Down:
-        col = col + 1;
-        break;
-      case EDirection.Left:
         row = row - 1;
         break;
-      case EDirection.Right:
+      case EDirection.Down:
         row = row + 1;
+        break;
+      case EDirection.Left:
+        col = col - 1;
+        break;
+      case EDirection.Right:
+        col = col + 1;
         break;
     }
     return new Position(row, col);

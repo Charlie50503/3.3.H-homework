@@ -4,7 +4,7 @@ import { Role } from '../role/role';
 import { Treasure } from './treasure';
 
 export class SuperStar extends Treasure {
-  static readonly probability: number = 0.1;
+  static readonly PROBABILITY: number = 0.1;
 
   public getName(): string {
     return '無敵星星';
