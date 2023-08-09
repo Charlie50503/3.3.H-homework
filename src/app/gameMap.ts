@@ -14,29 +14,10 @@ export class GameMap {
   }
 
   private generateMap(width: number, height: number) {
-    var map: (MapObject | null)[][] = new Array(height).fill(null).map(() => new Array(width).fill(null));
+    var map: (MapObject | null)[][] = new Array(height)
+      .fill(null)
+      .map(() => new Array(width).fill(null));
     return map;
-  }
-
-  public printMap() {
-    let rowIndexes = "  ";
-    this.grid[0].forEach((cell, columnIndex) => {
-      rowIndexes += columnIndex + " ";
-    });
-    console.log(rowIndexes);
-    this.grid.forEach((row, rowIndex) => {
-      let rowStr = rowIndex + " ";
-      row.forEach((cell, columnIndex) => {
-        if (cell) {
-          // 若該格子有角色，則先印出角色
-          rowStr += cell.printFlag() + " ";
-        } else {
-          // 若該格子什麼都沒有，則印出空格
-          rowStr += "- ";
-        }
-      });
-      console.log(rowStr);
-    });
   }
 
   public getObject(position: Position) {
@@ -44,15 +25,21 @@ export class GameMap {
   }
 
   public setObject(mapObject: MapObject) {
-    this.grid[mapObject.getPosition().getRow()][mapObject.getPosition().getColumn()] = mapObject;
-    const key = `${mapObject.getPosition().getRow()}-${mapObject.getPosition().getColumn()}`;
+    this.grid[mapObject.getPosition().getRow()][
+      mapObject.getPosition().getColumn()
+    ] = mapObject;
+    const key = `${mapObject.getPosition().getRow()}-${mapObject
+      .getPosition()
+      .getColumn()}`;
     this.occupiedPositions.add(key);
   }
 
   public removeObject(position: Position) {
     if (this.grid[position.getRow()][position.getColumn()]) {
       this.grid[position.getRow()][position.getColumn()] = null;
-      this.occupiedPositions.delete(`${position.getRow()}-${position.getColumn()}`);
+      this.occupiedPositions.delete(
+        `${position.getRow()}-${position.getColumn()}`
+      );
     } else {
       throw Error("沒找到可以刪除的物件");
     }
@@ -63,7 +50,12 @@ export class GameMap {
     const column = position.getColumn();
 
     // 檢查 row 和 column 是否在合理的範圍內
-    if (row < 0 || row >= this.grid.length || column < 0 || column >= this.grid[row].length) {
+    if (
+      row < 0 ||
+      row >= this.grid.length ||
+      column < 0 ||
+      column >= this.grid[row].length
+    ) {
       return false; // 或者你可以選擇拋出一個錯誤，取決於你的邏輯
     }
 
@@ -77,5 +69,49 @@ export class GameMap {
 
   public getColumnSize() {
     return this.colSize;
+  }
+
+  public printMap() {
+    const numberOfDigits = this.calculateNumberOfDigits();
+    const header = this.buildHeaderRow(numberOfDigits);
+    console.log(header);
+
+    this.grid.forEach((row, rowIndex) => {
+      const rowStr = this.buildRowString(row, rowIndex, numberOfDigits);
+      console.log(rowStr);
+    });
+  }
+
+  private calculateNumberOfDigits() {
+    const maxRowIndex = this.grid.length - 1;
+    const maxColIndex = this.grid[0].length - 1;
+    return Math.max(
+      maxRowIndex.toString().length,
+      maxColIndex.toString().length
+    );
+  }
+
+  private buildHeaderRow(numberOfDigits: number) {
+    let header = " ".repeat(numberOfDigits + 1);
+    this.grid[0].forEach((cell, columnIndex) => {
+      const formattedIndex = columnIndex
+        .toString()
+        .padStart(numberOfDigits, " ");
+      header += formattedIndex + " ";
+    });
+    return header;
+  }
+
+  private buildRowString(
+    row: (MapObject | null)[],
+    rowIndex: number,
+    numberOfDigits: number
+  ) {
+    let rowStr = rowIndex.toString().padStart(numberOfDigits, " ") + " ";
+    row.forEach((cell, columnIndex) => {
+      let cellStr = cell ? cell.printFlag() : "-";
+      rowStr += cellStr.padStart(numberOfDigits, " ") + " ";
+    });
+    return rowStr;
   }
 }
