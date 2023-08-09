@@ -10,11 +10,13 @@ export class Poisoned extends State {
     return "中毒";
   }
 
-  public onRoundStart(): void {
-    this.role.onDamage(15);
-  }
-
   public getType(): EState {
     return EState.Poisoned;
   }
+
+  public override onRoundStart(): void {
+    this.role.onDamage(15);
+  }
+
+
 }
