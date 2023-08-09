@@ -63,6 +63,7 @@ export abstract class Role extends MapObject {
   }
 
   public move(direction: EDirection) {
+    this.direction.setCurrentDirection(direction);
     const nextPosition = this.position.findNextPosition(direction);
     if (
       nextPosition.getColumn() > this.map.getColumnSize() - 1 ||
@@ -91,7 +92,6 @@ export abstract class Role extends MapObject {
     this.map.grid[this.position.getRow()][this.position.getColumn()] = null;
     this.map.grid[nextPosition.getRow()][nextPosition.getColumn()] = this;
     this.position.updatePosition(nextPosition);
-    this.direction.setCurrentDirection(direction);
   }
 
   public getMap() {
