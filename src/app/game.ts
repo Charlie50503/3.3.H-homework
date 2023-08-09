@@ -1,4 +1,3 @@
-import { Stockpile } from './state/stockpile';
 import { Obstacle } from "./mapObject/obstacle";
 import { GameMap } from "./gameMap";
 import { CharacterGenerator } from "./objectGenerator/characterGenerator";
@@ -10,9 +9,6 @@ import { TreasureGenerator } from "./objectGenerator/treasureGenerator";
 import { TreasureFactory } from "./treasureFactory";
 import { ObjectGenerator } from "./objectGenerator/objectGenerator";
 import { MapObject } from "./mapObject/mapObject";
-import { Accelerated } from "./state/accelerated";
-import { Erupting } from "./state/erupting";
-import { Healing } from "./state/healing";
 
 export class Game {
   map: GameMap;
@@ -105,7 +101,6 @@ export class Game {
       1,
       (character: Character) => {
         this.character = character;
-        this.character.setState(new Stockpile(this.character));
       }
     );
     this.generateObject(
