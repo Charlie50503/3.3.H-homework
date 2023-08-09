@@ -4,7 +4,7 @@ import { Normal } from "./normal";
 import { Erupting } from "./erupting";
 
 export class Stockpile extends State {
-  getName(): string {
+  public getName(): string {
     return "蓄力";
   }
 
@@ -12,13 +12,13 @@ export class Stockpile extends State {
     return 2;
   }
 
-  getType(): EState {
+  public getType(): EState {
     return EState.Stockpile;
   }
 
   public override onDamage(damage: number): void {
-    this.role.setState(new Normal(this.role));
     this.role.onDamage(damage);
+    this.role.setState(new Normal(this.role));
   }
 
   public override onRoundEnd(): void {
