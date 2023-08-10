@@ -1,11 +1,12 @@
 {
+  "prettier.configPath": ".prettierrc.json",
   "cSpell.words": [
     "Dokodemo",
     "touchee",
     "uuidv"
   ],
   "vscodeGitCommit.template": [
-    "3.3.H {tag}: {page}/{otherTarget}→{title}",
+    "3.3.H {tag}: {page}→{title}",
     "",
     "{message}"
   ],

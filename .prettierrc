@@ -1,6 +1,0 @@
-{
-  "quoteProps": "consistent",
-  "singleQuote": false,
-  "printWidth":80,
-  "endOfLine": "crlf"
-}
