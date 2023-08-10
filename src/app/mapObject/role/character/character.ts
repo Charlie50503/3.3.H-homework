@@ -6,15 +6,15 @@ import { readlineService } from "../../../services/readline.service";
 import { readlineValidation } from "../../../services/readline.validation";
 import { MoveActionCommand, MoveStrategy } from "../moveStrategy/moveStrategy";
 import { EMapObjectSymbol } from "../../../enum/mapObjectSymbol.enum";
-import { CharacterUpAttackStrategy } from "./attackStrategy/characterUpAttackStrategy";
-import { CharacterDownAttackStrategy } from "./attackStrategy/characterDownAttackStrategy";
-import { CharacterRightAttackStrategy } from "./attackStrategy/characterRightAttackStrategy";
-import { CharacterLeftAttackStrategy } from "./attackStrategy/characterLeftAttackStrategy";
 import { MoveNormalStrategy } from "../moveStrategy/MoveNormalStrategy";
+import { AttackHandler } from "./attackStrategy/attackHandler";
 
 export class Character extends Role {
-  constructor(id: string, position: Position, map: GameMap) {
+
+  attackHandler: AttackHandler;
+  constructor(id: string, position: Position, map: GameMap, attackHandler: AttackHandler) {
     super(id, position, map);
+    this.attackHandler = attackHandler;
   }
 
   public getName(): string {
@@ -29,8 +29,7 @@ export class Character extends Role {
 
   public async attack(): Promise<void> {
     console.log(this.getName() + `朝 ${this.direction.getCurrentDirection()} 方向發出攻擊`);
-    const attackStrategy = this.handleAttackStrategy(this.direction.getCurrentDirection());
-    attackStrategy.attack();
+    this.attackHandler.handle(this.direction.getCurrentDirection(), this.position, this.map);
   }
 
   public async takeTurn(): Promise<void> {
@@ -59,19 +58,6 @@ export class Character extends Role {
     moveStrategy.handleMove(action as MoveActionCommand);
   }
 
-  private handleAttackStrategy(direction: EDirection) {
-    // 找出地圖中距離主角最近的障礙物
-    switch (direction) {
-      case EDirection.Up:
-        return new CharacterUpAttackStrategy(this.position, this.map);
-      case EDirection.Down:
-        return new CharacterDownAttackStrategy(this.position, this.map);
-      case EDirection.Left:
-        return new CharacterLeftAttackStrategy(this.position, this.map);
-      case EDirection.Right:
-        return new CharacterRightAttackStrategy(this.position, this.map);
-    }
-  }
 
   public printFlag() {
     return this.direction.getCurrentDirection();
