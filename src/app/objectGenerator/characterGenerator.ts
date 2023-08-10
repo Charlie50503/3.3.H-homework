@@ -12,7 +12,13 @@ export class CharacterGenerator extends ObjectGenerator<Character> {
     super(map);
   }
   public generateObject(id: string, position: Position, map: GameMap): Character {
-    return new Character(id, position, map,
-      new AttackUpHandler(new AttackDownHandler(new AttackRightHandler(new AttackLeftHandler(null)))));
+    return new Character(
+      id,
+      position,
+      map,
+      new AttackUpHandler(
+        new AttackDownHandler(new AttackRightHandler(new AttackLeftHandler(null)))
+      )
+    );
   }
 }

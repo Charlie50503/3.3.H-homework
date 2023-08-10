@@ -49,13 +49,7 @@ function main() {
     DokodemoDoor.PROBABILITY
   );
 
-  const game = new Game(
-    treasureFactory,
-    new GameMap(10,10),
-    10,
-    10,
-    10
-  );
+  const game = new Game(treasureFactory, new GameMap(25, 25), 20, 20, 20);
   game.start();
 }
 

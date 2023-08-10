@@ -3,7 +3,6 @@ import { Role } from "../mapObject/role/role";
 import { State } from "./state";
 
 export class Normal extends State {
-
   constructor(role: Role) {
     super(role);
   }

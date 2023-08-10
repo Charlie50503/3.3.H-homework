@@ -1,9 +1,9 @@
-import { ETreasureType } from '../enum/treasureType.enum';
-import { GameMap } from '../gameMap';
-import { Treasure } from '../mapObject/treasure/treasure';
-import { Position } from '../position';
-import { TreasureFactory } from '../treasureFactory';
-import { ObjectGenerator } from './objectGenerator';
+import { ETreasureType } from "../enum/treasureType.enum";
+import { GameMap } from "../gameMap";
+import { Treasure } from "../mapObject/treasure/treasure";
+import { Position } from "../position";
+import { TreasureFactory } from "../treasureFactory";
+import { ObjectGenerator } from "./objectGenerator";
 type TreasureItem = {
   type: ETreasureType;
   range: [number, number];
@@ -20,19 +20,16 @@ export class TreasureGenerator extends ObjectGenerator<Treasure> {
     const selectedTreasureItem = this.randomTreasureItem(treasureItems);
     return this.treasureFactory.createTreasure(selectedTreasureItem.type, {
       id: id,
-      position: position,
+      position: position
     });
   }
   private buildTreasureItems(): TreasureItem[] {
     let sum = 0;
-    return Array.from(this.treasureFactory.getCreators()).reduce(
-      (items, [type, creator]) => {
-        const range: [number, number] = [sum, sum + creator.PROBABILITY];
-        sum += creator.PROBABILITY;
-        return items.concat({ type, range });
-      },
-      [] as TreasureItem[]
-    );
+    return Array.from(this.treasureFactory.getCreators()).reduce((items, [type, creator]) => {
+      const range: [number, number] = [sum, sum + creator.PROBABILITY];
+      sum += creator.PROBABILITY;
+      return items.concat({ type, range });
+    }, [] as TreasureItem[]);
   }
 
   private randomTreasureItem(treasureItems: TreasureItem[]): TreasureItem {
@@ -41,7 +38,7 @@ export class TreasureGenerator extends ObjectGenerator<Treasure> {
       (item) => random >= item.range[0] && random < item.range[1]
     );
     if (!treasureItem) {
-      throw Error('沒有生成任何物品');
+      throw Error("沒有生成任何物品");
     }
     return treasureItem;
   }

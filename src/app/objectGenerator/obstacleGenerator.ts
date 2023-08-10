@@ -1,7 +1,7 @@
-import { GameMap } from '../gameMap';
-import { Position } from '../position';
-import { ObjectGenerator } from './objectGenerator';
-import { Obstacle } from '../mapObject/obstacle';
+import { GameMap } from "../gameMap";
+import { Position } from "../position";
+import { ObjectGenerator } from "./objectGenerator";
+import { Obstacle } from "../mapObject/obstacle";
 
 export class ObstacleGenerator extends ObjectGenerator<Obstacle> {
   constructor(map: GameMap) {

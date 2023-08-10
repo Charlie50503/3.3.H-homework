@@ -5,5 +5,5 @@ export enum ETreasureType {
   HealingPotion,
   DevilFruit,
   KingsRock,
-  DokodemoDoor,
+  DokodemoDoor
 }

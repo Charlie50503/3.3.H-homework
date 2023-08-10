@@ -10,7 +10,6 @@ import { MoveNormalStrategy } from "../moveStrategy/MoveNormalStrategy";
 import { AttackHandler } from "./attackStrategy/attackHandler";
 
 export class Character extends Role {
-
   attackHandler: AttackHandler;
   constructor(id: string, position: Position, map: GameMap, attackHandler: AttackHandler) {
     super(id, position, map);
@@ -57,7 +56,6 @@ export class Character extends Role {
     );
     moveStrategy.handleMove(action as MoveActionCommand);
   }
-
 
   public printFlag() {
     return this.direction.getCurrentDirection();

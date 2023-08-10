@@ -1,6 +1,6 @@
-import { ETreasureType } from './enum/treasureType.enum';
-import { Treasure } from './mapObject/treasure/treasure';
-import { Position } from './position';
+import { ETreasureType } from "./enum/treasureType.enum";
+import { Treasure } from "./mapObject/treasure/treasure";
+import { Position } from "./position";
 
 export type TreasureParams = {
   id: string;
@@ -15,14 +15,10 @@ export class TreasureFactory {
       PROBABILITY: number;
     }
   >();
-  registerTreasure(
-    type: ETreasureType,
-    creator: TreasureCreator,
-    PROBABILITY: number
-  ) {
+  registerTreasure(type: ETreasureType, creator: TreasureCreator, PROBABILITY: number) {
     this.creators.set(type, {
       creator: creator,
-      PROBABILITY: PROBABILITY,
+      PROBABILITY: PROBABILITY
     });
   }
 

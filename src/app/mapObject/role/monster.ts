@@ -35,7 +35,7 @@ export class Monster extends Role {
       { rowIncrement: -1, colIncrement: 0 },
       { rowIncrement: 1, colIncrement: 0 },
       { rowIncrement: 0, colIncrement: -1 },
-      { rowIncrement: 0, colIncrement: 1 },
+      { rowIncrement: 0, colIncrement: 1 }
     ];
 
     let character: Character | null = null;

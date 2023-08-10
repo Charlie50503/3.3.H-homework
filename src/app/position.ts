@@ -1,4 +1,4 @@
-import { EDirection } from './enum/direction.enum';
+import { EDirection } from "./enum/direction.enum";
 
 export class Position {
   private row: number;
@@ -37,11 +37,11 @@ export class Position {
     return new Position(row, col);
   }
 
-  getRow(){
-    return this.row
+  getRow() {
+    return this.row;
   }
 
-  getColumn(){
-    return this.col
+  getColumn() {
+    return this.col;
   }
 }

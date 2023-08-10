@@ -1,6 +1,6 @@
 export enum EDirection {
-  Up="↑",
-  Down="↓",
-  Left="←",
-  Right="→"
+  Up = "↑",
+  Down = "↓",
+  Left = "←",
+  Right = "→"
 }

@@ -1,6 +1,5 @@
 import { EMapObjectSymbol } from "../enum/mapObjectSymbol.enum";
 import { EState } from "../enum/state.enum";
-import { GameMap } from "../gameMap";
 import { Role } from "../mapObject/role/role";
 import { State } from "./state";
 import { Teleport } from "./teleport";
@@ -23,7 +22,8 @@ export class Erupting extends State {
       row.forEach((cell) => {
         if (
           this.role.id !== cell?.id &&
-          (cell?.getSymbol() === EMapObjectSymbol.monster || cell?.getSymbol() === EMapObjectSymbol.character)
+          (cell?.getSymbol() === EMapObjectSymbol.monster ||
+            cell?.getSymbol() === EMapObjectSymbol.character)
         ) {
           (cell as Role).getState().onDamage(50);
         }

@@ -11,5 +11,3 @@ export abstract class MoveStrategy {
   public abstract printMoveableDirections(): void;
   public abstract handleMove(action: MoveActionCommand): void;
 }
-
-

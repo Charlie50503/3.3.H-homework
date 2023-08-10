@@ -26,12 +26,17 @@ export class Teleport extends State {
 
       let nextPosition: Position | null = null;
       do {
-        nextPosition = new Position(Math.floor(Math.random() * mapColumnSize), Math.floor(Math.random() * mapRowSize));
+        nextPosition = new Position(
+          Math.floor(Math.random() * mapColumnSize),
+          Math.floor(Math.random() * mapRowSize)
+        );
       } while (map.isPositionOccupied(nextPosition)); // 確保新位置是空地
 
       this.role.updatePosition(nextPosition, this.role.getDirection());
       // 更新角色位置
-      console.log(`${this.role.getName()}瞬身至位置 (${nextPosition.getRow()}, ${nextPosition.getColumn()})`);
+      console.log(
+        `${this.role.getName()}瞬身至位置 (${nextPosition.getRow()}, ${nextPosition.getColumn()})`
+      );
       this.role.setState(new Normal(this.role));
     }
   }

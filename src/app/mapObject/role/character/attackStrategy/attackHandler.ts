@@ -5,20 +5,17 @@ import { Position } from "../../../../position";
 export abstract class AttackHandler {
   protected next: AttackHandler | null = null;
 
-  constructor(
-    next: AttackHandler | null
-  ) {
-    this.next = next
+  constructor(next: AttackHandler | null) {
+    this.next = next;
   }
-  public handle(direction: EDirection,startPosition: Position, map: GameMap) {
+  public handle(direction: EDirection, startPosition: Position, map: GameMap) {
     if (this.match(direction)) {
-      this.doHandling(startPosition,map);
+      this.doHandling(startPosition, map);
     } else {
-
     }
   }
 
-  protected abstract match(direction: EDirection): boolean
+  protected abstract match(direction: EDirection): boolean;
 
-  protected abstract doHandling(startPosition: Position, map: GameMap): void
+  protected abstract doHandling(startPosition: Position, map: GameMap): void;
 }

@@ -11,7 +11,7 @@ export class AttackRightHandler extends AttackHandler {
   }
 
   protected match(direction: EDirection) {
-    return direction === EDirection.Right
+    return direction === EDirection.Right;
   }
 
   protected doHandling(startPosition: Position, map: GameMap) {

@@ -17,6 +17,4 @@ export class Poisoned extends State {
   public override onRoundStart(): void {
     this.role.onDamage(15);
   }
-
-
 }

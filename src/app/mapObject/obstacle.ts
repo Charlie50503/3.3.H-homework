@@ -1,6 +1,6 @@
-import { EMapObjectSymbol } from '../enum/mapObjectSymbol.enum';
-import { Position } from '../position';
-import { MapObject } from './mapObject';
+import { EMapObjectSymbol } from "../enum/mapObjectSymbol.enum";
+import { Position } from "../position";
+import { MapObject } from "./mapObject";
 
 export class Obstacle extends MapObject {
   constructor(id: string, position: Position) {
@@ -8,7 +8,7 @@ export class Obstacle extends MapObject {
   }
 
   public getName(): string {
-    return '障礙物';
+    return "障礙物";
   }
 
   public getSymbol(): EMapObjectSymbol {
